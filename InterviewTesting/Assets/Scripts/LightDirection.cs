@@ -7,10 +7,7 @@ using TMPro;
 
 public class LightDirection : MonoBehaviour
 {
-    float time;
-    float currentTime;
-    int days;
-    public float speed;
+    
     [SerializeField] Light sunLight;
     [SerializeField] Transform sunTransform; 
     [SerializeField] GameObject obj;
@@ -18,55 +15,43 @@ public class LightDirection : MonoBehaviour
     [SerializeField] TextMeshProUGUI timeText;
     [SerializeField] TextMeshProUGUI xText;
     [SerializeField] TextMeshProUGUI yText;
+    public DateTime dateTime;
+    float time = 24f;
+    float currentTime = 0f;
 
-    [SerializeField] TMP_InputField inputDate;
-    [SerializeField] TMP_InputField inputTime;
-    [SerializeField] TMP_InputField inputX;
-    [SerializeField] TMP_InputField inputY;
-    float xAxis;
-    float yAxis;
-    string dateToString;
-    string timeToString;
-
-
-    private void Start()
-    {
-        inputDate.onValueChanged.AddListener(OnDateChange);
-        inputTime.onValueChanged.AddListener(OnTimerChange);
-        inputX.onValueChanged.AddListener(OnXAxisChange);
-        inputY.onValueChanged.AddListener(OnYAxisChange);
-    }
     private void Update()
     {
-        UpdateDateTime();
+        TransformSunlightPosition();
     }
-
-    private void UpdateDateTime()
+    private void TransformSunlightPosition()
     {
-        sunTransform.Rotate(sunTransform.rotation.x , sunTransform.rotation.x , speed);
-        Debug.Log("@@@AAAAA " + sunTransform.rotation.x);
-    }
-    private void OnDateChange(string userInput)
-    {
-        dateToString = userInput;
-    }
-    private void OnTimerChange(string userInput)
-    {
-        timeToString = userInput;
-    }
-    private void OnXAxisChange(string userInput)
-    {
-        if(float.TryParse(userInput, out float result))
+        string getDate = UserInput.Instance.DateToString;
+        string getTime = UserInput.Instance.TimeToString;
+        if(!DateTime.TryParse(getDate + "" + getTime, out dateTime))
         {
-            xAxis = result;
-            
+            return;
+        }
+        for(int i = 0; i< time; i++)
+        {
+            Debug.Log("AAAA ");
+            float temp = i / time * 24f;
+            CalculateSunAltitude(temp, UserInput.Instance.XAxis);
+            CalculateSunAzimuth(temp, UserInput.Instance.YAxis);
         }
     }
-    private void OnYAxisChange(string userInput)
+    private void CalculateSunAltitude(float time, float sunAltitude)
     {
-        if (float.TryParse(userInput, out float result))
-        {
-            yAxis = result;
-        }
+        Debug.Log("AAAAAAAAA " + sunAltitude);
+        string tempString;
+        sunAltitude = 90f - (time / 24f) * 180f;
+        tempString = sunAltitude.ToString() + "°";
+        xText.text = $"Sun altitude: {tempString}";
+    }
+    private  void CalculateSunAzimuth(float time, float sunAzimuth)
+    {
+        string tempString;
+        sunAzimuth = 180f - (time / 24f) * 360f;
+        tempString = sunAzimuth.ToString() + "°";
+        yText.text = $"Sun azimuth: {tempString}";
     }
 }

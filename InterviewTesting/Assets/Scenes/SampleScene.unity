@@ -1127,6 +1127,7 @@ GameObject:
   m_Component:
   - component: {fileID: 647170240}
   - component: {fileID: 647170241}
+  - component: {fileID: 647170242}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -1163,7 +1164,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c89d763c6c1f242972ec34d1b1a6ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
   sunLight: {fileID: 705507994}
   sunTransform: {fileID: 705507995}
   obj: {fileID: 0}
@@ -1171,6 +1171,18 @@ MonoBehaviour:
   timeText: {fileID: 0}
   xText: {fileID: 2082129594}
   yText: {fileID: 124686539}
+--- !u!114 &647170242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647170239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4e8583ef3ee8374e8f7bb64a87f31b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   inputDate: {fileID: 1561583404}
   inputTime: {fileID: 1619241310}
   inputX: {fileID: 1244841926}
